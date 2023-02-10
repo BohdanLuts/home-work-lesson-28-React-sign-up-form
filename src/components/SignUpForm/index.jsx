@@ -1,27 +1,26 @@
-import React, { Component } from "react";
-import { FaRegEdit } from "react-icons/fa";
-import classNames from "classnames";
-import styles from "./SignUpForm.module.css";
+import React, { Component } from 'react'
+import { FaRegEdit } from 'react-icons/fa'
+import classNames from 'classnames'
+import styles from './SignUpForm.module.css'
 
 const INITIAL_VALUES = {
-  userName: "",
-  email: "",
-  password: "",
-  passwordConf: "",
-  userAgree: "",
-};
+  userName: '',
+  email: '',
+  password: '',
+  passwordConf: '',
+  isAgree: ''
+}
 
 const LOGIN_FORM_REX_EXP = {
   userName: /^[A-Z][a-z]{2,19}(-[A-Z][a-z]{2,19})?$/,
   email: /^.+@.+$/,
   password: /^(?=.*[A-Z].*)(?=.*[a-z].*)(?=.*\d.*)(?=.*[!@#$%^&*.].*).{8,20}$/,
-  passwordConf:
-    /^(?=.*[A-Z].*)(?=.*[a-z].*)(?=.*\d.*)(?=.*[!@#$%^&*.].*).{8,20}$/,
-};
+  passwordConf: /^(?=.*[A-Z].*)(?=.*[a-z].*)(?=.*\d.*)(?=.*[!@#$%^&*.].*).{8,20}$/
+}
 
 class SignUpForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       userName: INITIAL_VALUES.userName,
@@ -32,88 +31,86 @@ class SignUpForm extends Component {
       isPasswordValid: false,
       passwordConf: INITIAL_VALUES.passwordConf,
       isPasswordConfValid: false,
-      userAgree: false,
-      isAgreeValid: false,
-    };
+      isAgree: false
+    }
   }
 
   handleUserNameChange = ({ target: { value } }) => {
     this.setState({
       userName: value,
-      isUserNameValid: LOGIN_FORM_REX_EXP.userName.test(value),
-    });
-  };
+      isUserNameValid: LOGIN_FORM_REX_EXP.userName.test(value)
+    })
+  }
 
   handleEmailChange = ({ target: { value } }) => {
     this.setState({
       email: value,
-      isEmailValid: LOGIN_FORM_REX_EXP.email.test(value),
-    });
-  };
+      isEmailValid: LOGIN_FORM_REX_EXP.email.test(value)
+    })
+  }
 
   handlePasswordChange = ({ target: { value } }) => {
     this.setState({
       password: value,
-      isPasswordValid: LOGIN_FORM_REX_EXP.password.test(value),
-    });
-  };
+      isPasswordValid: LOGIN_FORM_REX_EXP.password.test(value)
+    })
+  }
 
   handlePasswordConfChange = ({ target: { value } }) => {
     this.setState({
       passwordConf: value,
-      isPasswordConfValid: LOGIN_FORM_REX_EXP.passwordConf.test(value),
-    });
-  };
+      isPasswordConfValid: LOGIN_FORM_REX_EXP.passwordConf.test(value)
+    })
+  }
 
-  handleAgreeChange = ({ target: { value } }) => {
+  handleAgreeChange = ({ target: { checked } }) => {
     this.setState({
-      isAgree: value,
-    });
-  };
+      isAgree: checked
+    })
+  }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.setState(INITIAL_VALUES);
-  };
+  handleSubmit = e => {
+    e.preventDefault()
+    this.setState(INITIAL_VALUES)
+  }
 
-  render() {
+  render () {
     const {
       userName,
       email,
       password,
       passwordConf,
-      userAgree,
       isUserNameValid,
       isEmailValid,
       isPasswordValid,
       isPasswordConfValid,
-      isAgreeValid,
-    } = this.state;
+      isAgree
+    } = this.state
 
     const userNameClassName = classNames(styles.input, {
       [styles.inputValid]: isUserNameValid,
-      [styles.inputInvalid]: !isUserNameValid,
-    });
+      [styles.inputInvalid]: !isUserNameValid
+    })
 
     const emailClassName = classNames(styles.input, {
       [styles.inputValid]: isEmailValid,
-      [styles.inputInvalid]: !isEmailValid,
-    });
+      [styles.inputInvalid]: !isEmailValid
+    })
 
     const passwordClassName = classNames(styles.input, {
       [styles.inputValid]: isPasswordValid === isPasswordConfValid,
-      [styles.inputInvalid]: !isPasswordValid,
-    });
+      [styles.inputInvalid]: !isPasswordValid
+    })
 
     const passwordConfClassName = classNames(styles.input, {
       [styles.inputValid]: isPasswordConfValid === isPasswordValid,
-      [styles.inputInvalid]: !isPasswordConfValid,
-    });
+      [styles.inputInvalid]: !isPasswordConfValid
+    })
 
     const agreeClassName = classNames(styles.agree, {
-      [styles.agreeValid]: isAgreeValid,
-      [styles.agreeInvalid]: !isAgreeValid,
-    });
+      [styles.agreeValid]: isAgree,
+      [styles.agreeInvalid]: !isAgree
+    })
 
     return (
       <div className={styles.formContainer}>
@@ -126,9 +123,9 @@ class SignUpForm extends Component {
             <span className={styles.inputName}>Full name</span>
             <input
               className={userNameClassName}
-              type="text"
-              name="name"
-              placeholder="Your name"
+              type='text'
+              name='name'
+              placeholder='Your name'
               value={userName}
               onChange={this.handleUserNameChange}
               autoFocus
@@ -138,9 +135,9 @@ class SignUpForm extends Component {
             <span className={styles.inputName}>Email addres</span>
             <input
               className={emailClassName}
-              type="email"
-              name="email"
-              placeholder="your@mail.com"
+              type='email'
+              name='email'
+              placeholder='your@mail.com'
               value={email}
               onChange={this.handleEmailChange}
             />
@@ -149,9 +146,9 @@ class SignUpForm extends Component {
             <span className={styles.inputName}>Password</span>
             <input
               className={passwordClassName}
-              type="password"
-              name="password"
-              placeholder="Password"
+              type='password'
+              name='password'
+              placeholder='Password'
               value={password}
               onChange={this.handlePasswordChange}
             />
@@ -160,9 +157,9 @@ class SignUpForm extends Component {
             <span className={styles.inputName}>Confirm password</span>
             <input
               className={passwordConfClassName}
-              type="password"
-              name="passwordConf"
-              placeholder="Confirm password"
+              type='password'
+              name='passwordConf'
+              placeholder='Confirm password'
               value={passwordConf}
               onChange={this.handlePasswordConfChange}
             />
@@ -170,9 +167,8 @@ class SignUpForm extends Component {
           <label className={styles.labelCheckBox}>
             <input
               className={agreeClassName}
-              name="isAgree"
-              type="checkbox"
-              value={userAgree}
+              name='isAgree'
+              type='checkbox'
               checked={this.state.isAgree}
               onChange={this.handleAgreeChange}
             />
@@ -180,17 +176,17 @@ class SignUpForm extends Component {
               I Agree All Statements In Terms Of Service
             </span>
           </label>
-          <button type="submit" className={styles.button}>
+          <button type='submit' className={styles.button}>
             Sign Up
           </button>
         </form>
         <div className={styles.member}>
           <p>I`m already a member!</p>
-          <a href="#">Sign In</a>
+          <a href='#'>Sign In</a>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default SignUpForm;
+export default SignUpForm
